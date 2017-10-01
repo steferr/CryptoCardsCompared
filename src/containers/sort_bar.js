@@ -19,13 +19,15 @@ class SortBar extends Component {
 }
 
 const container = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  position: 'fixed',
+  top: '130px',
   cursor: 'pointer',
   width: '100%',
   height: '72px',
   border: '1px solid #e5e5e5',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
   // margin: '8px',
   backgroundColor: '#fff',
   borderRadius: '4px',

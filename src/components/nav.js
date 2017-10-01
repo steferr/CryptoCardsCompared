@@ -14,13 +14,16 @@ import FilterItem from '../containers/filters_item'
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    position: 'fixed',
+    top: '0px',
+    // left: '0px',
+    width: '90%',
     height: '60px',
-    background: 'red',
-    padding: '0px 16px',
+    background: '#21252B',
+    // padding: '0px 16px', //problemi con paddinx dx
     }}
     >
-    <h3
-    >CryptoCardsCompared</h3>
+    <h3 style={{color: '#F6F9FA'}}>CryptoCardsCompared</h3>
 
       <div style={{display: 'flex'}}>
         <FilterItem filterType='title' label = 'About'/>

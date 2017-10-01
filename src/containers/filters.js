@@ -3,7 +3,13 @@ import FilterItem from './filters_item'
 
 const Filters = (props) => {
   return (
-    <div style = {{ height: '80px' }}>
+    <div style = {{
+      position: 'fixed',
+      top: '60px',
+      height: '80px',
+      width: '80%',
+      background: '#282C34',
+    }}>
     <h3>Filters</h3>
     <div style={{display: 'flex', alignItems: 'flex-end'}}>
       <div style={{display: 'flex', flexDirection: 'column'}}>

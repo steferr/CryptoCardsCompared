@@ -45,21 +45,17 @@ export default class App extends Component {
         <div>
           <ShowCellContainer />
         </div>
-        <div>
+        <div className='list-group-item col-sm-12'>
           <Filters />
         </div>
+        {// ScrollArea esterna solo orizzontale
+        }
         <ScrollArea
-        vertical = { true }
+        vertical = { false }
         stopScrollPropagation = { false }
         style = {{
           border: '1px solid red',
           touchAction: 'manipulation',
-          display: 'block',
-          height: '300px',
-          // position: 'absolute',
-          // top: '210px',
-          marginTop: '210px',
-          // zIndex: '-1',
         }}
         contentStyle = {{
           width: '3500px',
@@ -84,20 +80,50 @@ export default class App extends Component {
           height: '16px',
         }}
         >
-        <SortBar />
-        <CardList />
-        </ScrollArea>
+        <div className='list-group-item col-sm-12'>
+          <SortBar />
         </div>
+          {// ScrollArea interna solo verticale
+          }
+          <ScrollArea
+            style = {{
+              background: 'grey',
+              border: '1px solid blue',
+              height: `${window.innerHeight-altezzaHeader}px`,
+            }}
+            contentStyle = {{
+              height: '2000px',
+              backgroundColor: '#f4f4f4'
+            }}
+            smoothScrolling = { false }
+            horizontal = { false }
+            verticalContainerStyle = {{
+              position: 'fixed',
+              top: `${ altezzaHeader + 16 }px`, //h nav, filters, SortBar + 16px margin
+              right: '16px',
+              height: `${window.innerHeight-altezzaHeader-32}px`,
+              opacity: '.6',
+              width: '16px',
+              borderRadius: '100px',
+              backgroundColor: '#eee',
+              backdropFilter: 'blur(2px)',
+            }}
+            verticalScrollbarStyle = {{
+              backgroundColor: '#aaa',
+              borderRadius: '100px',
+              opacity: '1',
+              width: '16px',
+            }}
+            stopScrollPropagation = { false }
+            >
+            <CardList />
+          </ScrollArea>
+        </ScrollArea>
+
+      </div>
     );
   }
 }
-// <div style={{ position: 'relative', top: '210px', background: '#F86738', width: '100%', height: '2000px'}}>
-// </div>
-
-
-
-
-
 // <SimpleExample></SimpleExample>
 
 // vertical = { true }

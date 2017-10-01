@@ -29,7 +29,7 @@ class CardList extends Component {
   render() {
     return (
       <div
-        style = {{ width: '800px' }}
+        style = {{height: '2400px'}}
       >
       <ul
         className="list-group col-sm-12"

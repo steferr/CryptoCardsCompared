@@ -4,8 +4,8 @@
 
 * {
   margin: 0;
-  overflow: hidden;
-  font-family: monospace;
+  /*overflow: hidden;*/
+  font-family: sans-serif;
   color: #334;
   /*background: #f6f9fa;*/
 }
