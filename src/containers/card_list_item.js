@@ -6,10 +6,52 @@ import CardListItemCell from './card_list_item_cell'
 // import ButtonFilterCategory from '../containers/button_filter_category'
 
 class CardListItem extends Component {
+  handleTouchStart(e) {
+    let {touches} = e
+    // console.log(e);
+    // console.log(e.touches);
+    // console.log(touches[0]);
+    // let {clientX, clientY} = touches[0];
+    // console.log(`clientX: ${clientX}`);
+    // console.log(`clientY: ${clientY}`);
+
+    let eventPreviousValues = {
+        clientX: 0,
+        clientY: 0,
+        deltaX: 0,
+        deltaY: 0
+    };
+
+    if (touches.length === 1) {
+        let {clientX, clientY} = touches[0];
+        eventPreviousValues = {
+            ...eventPreviousValues,
+            clientY,
+            clientX,
+            timestamp: Date.now()
+        };
+    }
+    let clienteX = eventPreviousValues.clientX
+    let clienteY = eventPreviousValues.clientY
+    let {clientiX, clientY} = eventPreviousValues
+    console.log(clientiX);
+    console.log(clienteX);
+    console.log(eventPreviousValues);
+    // var proprrrrrs = {};
+    // proprrrrrs.foo = 'x';
+    // proprrrrrs.bar = 'y';
+    // console.log(proprrrrrs);
+    // console.log({...proprrrrrs, fart: 'z', timestamp: Date.now()});
+    // console.log(proprrrrrs, {fart: 'z'});
+    // console.log(Object.assign(proprrrrrs, {fart: 'z'}));
+
+  }
+
   render() {
     // <Cancellami />
     return (
         <div style={container} key ={this.props.title} onClick = { this.props.onClick}
+        onTouchStart = {this.handleTouchStart}
         >
           <CardListItemCell
             cellType={'title'}

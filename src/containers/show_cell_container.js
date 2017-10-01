@@ -79,8 +79,8 @@ ShowCellContainer.propTypes = {
 
 const showCellContainerStyle = {
   position: 'fixed',
-  bottom: '20px',
-  right: '20px',
+  bottom: '48px',
+  right: '48px',
   backgroundColor: '#fff',
   border: '1px solid #eee',
   padding: '20px',

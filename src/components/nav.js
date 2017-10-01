@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import FilterItem from '../containers/filters_item'
 
-const Nav = (props) => {
+  // onTouchStart={this.handleTouchStart.bind(this)}
+  const Nav = (props) => {
+    // let {cacca} = {tette: 'culo', merda: 'vagina'}
+    // console.log(cacca);
+    // onTouchStart = {(e)=>{console.log('start')}}
+    // onTouchEnd = {(e)=>{console.log(e)}}
+    // onTouchMove = {(e)=>{console.log('move')}}
+    // onTouchMove = {(e)=>{console.log(e)}}
   return (
     <div style = {{
     display: 'flex',
@@ -10,8 +17,10 @@ const Nav = (props) => {
     height: '60px',
     background: 'red',
     padding: '0px 16px',
-    }}>
-    <h3>CryptoCardsCompared</h3>
+    }}
+    >
+    <h3
+    >CryptoCardsCompared</h3>
 
       <div style={{display: 'flex'}}>
         <FilterItem filterType='title' label = 'About'/>
