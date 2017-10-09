@@ -3,12 +3,12 @@
 // import BookReducer from './reducer_books';
 // import ActiveBook from './reducer_active_book';
 // import SortedBy from './reducer_sorted_by';
-// import hiddenCells from './reducer_toggle_categories';
+// import hiddenColumns from './reducer_toggle_categories';
 //
 // const rootReducer = combineReducers({
 //   books: BookReducer,
 //   activeBook: ActiveBook,
-//   hiddenCells: hiddenCells,
+//   hiddenColumns: hiddenColumns,
 //   sortedBy: SortedBy,
 //   // activeFilters: ActiveFilters
 // });

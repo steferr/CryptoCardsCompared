@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 class cardList extends Component {
   renderList() {
     return this.props.books.map((book) => {
-      if (this.props.hiddenCells.indexOf(book.category) == -1)
+      if (this.props.hiddenColumns.indexOf(book.category) == -1)
         return (
           <div key = {book.title}>
           <li
@@ -45,7 +45,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(stato) {
   return {
     books: stato.books,
-    hiddenCells: stato.hiddenCells
+    hiddenColumns: stato.hiddenColumns
   }
 }
 // Promote cardList from a Component to a container. It needs to know about this

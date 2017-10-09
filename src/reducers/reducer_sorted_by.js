@@ -22,7 +22,7 @@ const initialState = {
     }
   ],
   sortedBy: '',
-  hiddenCells: []
+  hiddenColumns: []
 }
 
 export default (state = initialState, action) => {

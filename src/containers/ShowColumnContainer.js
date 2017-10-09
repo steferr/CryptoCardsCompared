@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ShowCellButton from './show_cell_button';
+import ShowColumn from './ShowColumn';
 
 class ShowCellContainer extends Component {
   constructor (props) {
@@ -9,13 +9,13 @@ class ShowCellContainer extends Component {
     this.renderList = this.renderList.bind(this)
   }
   renderList() {
-    return this.props.hiddenCells.map((cellType) => {
+    return this.props.hiddenColumns.map((columnID) => {
       // // console.log('- - renderList');
-      // // console.log(cellType);
+      // // console.log(columnID);
       return (
-        <ShowCellButton
-          cellType={cellType}
-          label={cellType}
+        <ShowColumn
+          columnID={columnID}
+          label={columnID}
         />
       )
     })
@@ -26,7 +26,7 @@ class ShowCellContainer extends Component {
   //       return (
   //         <CardListItem
   //           key = { card.title }
-  //           cellType = { card.cellType }
+  //           columnID = { card.columnID }
   //           title = { card.title }
   //           pages = { card.pages }
   //           price = {card.price }
@@ -39,10 +39,10 @@ class ShowCellContainer extends Component {
 
   render() {
     // console.log(' - - - ShowCellContainer - - - ');
-    // console.log('this.props.hiddenCells')
-    // console.log(this.props.hiddenCells)
+    // console.log('this.props.hiddenColumns')
+    // console.log(this.props.hiddenColumns)
     //hides the container when there are no hidden Cells
-    if (this.props.hiddenCells.length == 0)
+    if (this.props.hiddenColumns.length == 0)
       return <div></div>
     else {
     // console.log('this.renderList()');
@@ -60,25 +60,26 @@ class ShowCellContainer extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({hideCellType: hideCellType }, dispatch)
+  return bindActionCreators({HideColumn: HideColumn }, dispatch)
 }
 
 function mapStateToProps(state) {
   return {
-    hiddenCells: state.hiddenCells
+    hiddenColumns: state.hiddenColumns
   }
 }
 
 export default connect(mapStateToProps)(ShowCellContainer);
 
 ShowCellContainer.propTypes = {
-  cellType: PropTypes.string,
+  columnID: PropTypes.string,
   label: PropTypes.string,
   // active: PropTypes.bool
 };
 
 const showCellContainerStyle = {
   position: 'fixed',
+  zIndex: 20,
   bottom: '48px',
   right: '48px',
   backgroundColor: '#fff',

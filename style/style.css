@@ -5,9 +5,16 @@
 * {
   margin: 0;
   /*overflow: hidden;*/
-  font-family: sans-serif;
-  color: #334;
-  /*background: #f6f9fa;*/
+  font-family: 'Poppins', sans-serif;
+  color: #19243B;
+  /*color: blue;*/
+  /*backgroundColor: #f6f9fa;*/
+}
+
+.CardItemOverview {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0px;
 }
 
 /*.area{

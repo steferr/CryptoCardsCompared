@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ScrollBar from './Scrollbar';
 import {findDOMNode, warnAboutFunctionChild, warnAboutElementChild, positiveOrZero, modifyObjValues} from './utils';
 import lineHeight from 'line-height';
@@ -13,7 +13,7 @@ const eventTypes = {
     keyPress: 'keypress'
 };
 
-export default class ScrollArea extends React.Component {
+export default class ScrollArea extends Component {
     constructor(props) {
         super(props);
         this.state = {

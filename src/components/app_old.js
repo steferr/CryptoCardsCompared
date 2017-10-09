@@ -5,10 +5,10 @@ import Nav from './nav';
 import CardList from '../containers/card_list';
 import BookDetail from '../containers/active_book'
 // import ButtonFilterCategory from '../containers/button_filter_category'
-import SortBar from '../containers/sort_bar'
+import SortBar from '../containers/SortBar'
 import Filters from '../containers/filters'
-import CardListItemCell from '../containers/card_list_item_cell'
-import ShowCellContainer from '../containers/show_cell_container'
+import CardItemDetail from '../containers/card_list_item_cell'
+import ShowCellContainer from '../containers/ShowColumnContainer'
 // import ScrollArea from './scroll_area';
 // import SimpleExample from './simple_example'
 

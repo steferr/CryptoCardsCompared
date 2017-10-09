@@ -11,19 +11,19 @@ export function selectBook(book) {
   }
 }
 
-export function showCellType(cellType) {
-  // console.log(`actionCreator showCellType(${cellType}) called`);
+export function showColumn(columnID) {
+  // console.log(`actionCreator showColumn(${columnID}) called`);
   return {
-    type: 'SHOW_CELL_TYPE',
-    payload: cellType
+    type: 'SHOW_COLUMN',
+    payload: columnID
   }
 }
 
-export function hideCellType(cellType) {
-  // console.log(`actionCreator hideCellType(${cellType}) called`);
+export function hideColumn(columnID) {
+  // console.log(`actionCreator HideColumn(${columnID}) called`);
   return {
-    type: 'HIDE_CELL_TYPE',
-    payload: cellType
+    type: 'HIDE_COLUMN',
+    payload: columnID
   }
 }
 
@@ -50,19 +50,23 @@ export function sortByName(cardList, direction) {
 }
 
 
-export function sortBy(cellType) {
-  // console.log(`actionCreator sortBy called, cellType: ${cellType}`);
+export function sortBy(columnID, contentType) {
+  // console.log(`actionCreator sortBy called, contentType: ${contentType}`);
+  // console.log(columnID);
+  // console.log(contentType);
+  // console.log(content);
   return {
     type: 'SORT_BY',
-    payload: cellType
+    columnID: columnID,
+    contentType: contentType,
   }
 }
 
-export function filterBy(filterType, cardIssuer) {
-  console.log(`actionCreator filterBy called`);
+export function filterBy(keyToFilter, valueToFilter) {
+  // console.log(`actionCreator filterBy key: ${keyToFilter}, value: ${valueToFilter} called`);
   return {
     type: 'FILTER_BY',
-    filterType: filterType,
-    cardIssuer: cardIssuer,
+    keyToFilter: keyToFilter,
+    valueToFilter: valueToFilter,
   }
 }

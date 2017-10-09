@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import ScrollArea from 'react-scrollbar';
-// import ScrollArea from './scroll_area';
+// import ScrollArea from 'react-scrollbar';
+// import BookDetail from '../containers/active_book'
+// import ScrollBarSte from '../containers/scroll_bar_ste'
 import Nav from './nav';
-import CardList from '../containers/card_list';
-import BookDetail from '../containers/active_book'
-// import ButtonFilterCategory from '../containers/button_filter_category'
-import SortBar from '../containers/sort_bar'
-import Filters from '../containers/filters'
-import CardListItemCell from '../containers/card_list_item_cell'
-import ShowCellContainer from '../containers/show_cell_container'
-// import ScrollArea from './scroll_area';
-// import SimpleExample from './simple_example'
+import ScrollContainer from '../containers/ScrollContainer'
+import Filters from './Filters'
+import ShowCellContainer from '../containers/ShowColumnContainer'
+import TransitionMotionTest from './TransitionMotionTest'
+import MotionTest from './MotionTest'
 
 export default class App extends Component {
 
@@ -39,58 +36,79 @@ export default class App extends Component {
     const altezzaHeader = 60+80+72
     // let {'cacca', 'pipi', {key1: 1, key2: 2}} = this.eventPreviousValues;
     // console.log('merda');
+    // let innerWidth = window.innerWidth
     return (
       <div>
-        <Nav />
-        <div>
-          <ShowCellContainer />
-        </div>
-        <div>
-          <Filters />
-        </div>
-        <ScrollArea
-        vertical = { true }
-        stopScrollPropagation = { false }
-        style = {{
-          border: '1px solid red',
-          touchAction: 'manipulation',
-          display: 'block',
-          height: '300px',
-          // position: 'absolute',
-          // top: '210px',
-          marginTop: '210px',
-          // zIndex: '-1',
-        }}
-        contentStyle = {{
-          width: '3500px',
-          // height: '300px',
-        }}
-        horizontalContainerStyle = {{
-          opacity: '.6',
-          height: '16px',
-          borderRadius: '100px',
-          backgroundColor: '#eee',
-          backdropFilter: 'blur(2px)',
-          marginRight: '30px',
-          width: `${window.innerWidth-(16*4)}px`,
-          position: 'fixed',
-          bottom: '16px',
-          left: '16px',
-        }}
-        horizontalScrollbarStyle = {{
-          backgroundColor: '#aaa',
-          borderRadius: '100px',
-          opacity: '1',
-          height: '16px',
-        }}
-        >
-        <SortBar />
-        <CardList />
-        </ScrollArea>
-        </div>
+      <Nav />
+
+      <Filters />
+      <ScrollContainer />
+      <ShowCellContainer />
+      </div>
     );
   }
 }
+// <MotionTest />
+// <TransitionMotionTest />
+
+
+
+// <h1>AFFASOIVJLKN</h1>
+// <div style = {{
+//   // position: 'relative',
+//   // overflow: 'auto',
+//   // width: '100%',
+//   // height: '100%'
+// }}>
+// <CardList />
+// </div>
+
+
+
+// <ScrollBarSte direction = 'horizontal' length = {window.innerWidth - 32}/>
+// <ScrollArea
+// vertical = { true }
+// stopScrollPropagation = { false }
+// smoothScrolling = { true }
+// style = {{
+//   border: '1px solid red',
+//   touchAction: 'manipulation',
+//   display: 'block',
+//   height: `${window.innerHeight-220}px`,
+//   // position: 'absolute',
+//   // top: '210px',
+//   marginTop: '210px',
+//   // zIndex: '-1',
+// }}
+// contentStyle = {{
+//   width: '3500px',
+//   // height: '300px',
+// }}
+// horizontalContainerStyle = {{
+//   opacity: '.6',
+//   height: '16px',
+//   borderRadius: '100px',
+//   backgroundColor: '#eee',
+//   backdropFilter: 'blur(2px)',
+//   marginRight: '30px',
+//   width: `${window.innerWidth-(16*4)}px`,
+//   position: 'fixed',
+//   bottom: '16px',
+//   left: '16px',
+// }}
+// horizontalScrollbarStyle = {{
+//   backgroundColor: '#aaa',
+//   borderRadius: '100px',
+//   opacity: '1',
+//   height: '16px',
+// }}
+// >
+// <SortBar />
+// <CardList />
+// </ScrollArea>
+
+
+
 // <div style={{ position: 'relative', top: '210px', background: '#F86738', width: '100%', height: '2000px'}}>
 // </div>
 

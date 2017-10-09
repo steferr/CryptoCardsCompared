@@ -11,30 +11,30 @@ class ButtonFilterCategory extends Component {
       active: true
     }
     this.onButtonClick = this.onButtonClick.bind(this)
-    this.isPartofhiddenCells = this.isPartofhiddenCells.bind(this)
+    this.isPartofhiddenColumns = this.isPartofhiddenColumns.bind(this)
   }
-  isPartofhiddenCells() {
-    //controllo se la categoria è presente nelle hiddenCells dello stato
-    // // console.log('this.props.state.hiddenCells from button filter category');
-    // // console.log(this.props.state.hiddenCells);
-    return this.props.state.hiddenCells.indexOf(this.props.categoria)
+  isPartofhiddenColumns() {
+    //controllo se la categoria è presente nelle hiddenColumns dello stato
+    // // console.log('this.props.state.hiddenColumns from button filter category');
+    // // console.log(this.props.state.hiddenColumns);
+    return this.props.state.hiddenColumns.indexOf(this.props.categoria)
   }
   onButtonClick() {
-    // // console.log(this.isPartofhiddenCells());
-    // var indice = this.props.state.hiddenCells.indexOf(this.props.categoria)
+    // // console.log(this.isPartofhiddenColumns());
+    // var indice = this.props.state.hiddenColumns.indexOf(this.props.categoria)
     // se non è presente allora la aggiungo
-    if (this.isPartofhiddenCells() == -1) {
+    if (this.isPartofhiddenColumns() == -1) {
 
       this.props.nascondiCategoria(this.props.categoria);
-      // // console.log(this.props.state.hiddenCells);
+      // // console.log(this.props.state.hiddenColumns);
     }
     //altrimenti la rimuovo
     else
     this.props.vediCategoria(this.props.categoria);
   }
   render() {
-    // var isHidden = this.props.state.hiddenCells.indexOf(this.props.categoria)
-    if ( this.isPartofhiddenCells() !== -1) {
+    // var isHidden = this.props.state.hiddenColumns.indexOf(this.props.categoria)
+    if ( this.isPartofhiddenColumns() !== -1) {
       var stilePulsante = normal
       var descrizione = <p>nascosto</p>
     }

@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { showColumn } from '../actions/index'
 import PropTypes from 'prop-types';
-import { showCellType } from '../actions/index'
-// import { hideCellType } from '../actions/index';
 
-class ShowCellButton extends Component {
+class ShowColumn extends Component {
   constructor (props) {
     super(props)
   }
 
   render() {
-    // console.log(this.props);
+    // console.log(this.props.showColumn);
+//
     return(
       <div>
-        <button onClick={() => this.props.showCellType(this.props.cellType)} style={normal}>
+        <button onClick={() => this.props.showColumn(this.props.showColumn(this.props.columnID))} style={normal}>
           {this.props.label}
         </button>
       </div>
@@ -24,19 +24,19 @@ class ShowCellButton extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({showCellType: showCellType }, dispatch)
+  return bindActionCreators({showColumn: showColumn }, dispatch)
 }
 
 function mapStateToProps(state) {
   return {
-    hiddenCells: state.hiddenCells
+    state: state
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowCellButton);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowColumn);
 
-ShowCellButton.propTypes = {
-  cellType: PropTypes.string,
+ShowColumn.propTypes = {
+  columnID: PropTypes.string,
   label: PropTypes.string,
   // active: PropTypes.bool
 };
@@ -49,4 +49,5 @@ const normal = {
   color: 'grey',
   outline: 'none',
   backgroundColor: '#e5e5e5',
+  cursor: 'pointer',
 }

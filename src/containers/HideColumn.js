@@ -1,20 +1,19 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { hideCellType } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import { hideColumn } from '../actions/index';
 import PropTypes from 'prop-types';
+import { PRIMARY } from '../utilities/constants'
 
-class HideCellType extends Component {
+class HideColumn extends Component {
   constructor (props) {
     super(props)
   }
 
   render() {
     return (
-      <div>
-      <button onClick={() => this.props.hideCellType(this.props.cellType)} style={normal}>
+      <div onClick={() => this.props.hideColumn(this.props.columnID)} style={normal}>
         {this.props.label}
-      </button>
       </div>
     )
   }
@@ -29,17 +28,21 @@ const hidden = {
 }
 
 const normal = {
-  borderRadius: '100px',
+  // borderRadius: '100px',
   border: 'none',
   padding: '1px 4px',
   fontSize: '12px',
-  color: 'grey',
+  textTransform: 'uppercase',
+  fontWeight: '500',
+  letterSpacing: '1px',
+  color: PRIMARY,
   outline: 'none',
-  backgroundColor: '#e5e5e5',
+  cursor: 'pointer',
+  // backgroundColor: '#e5e5e5',
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({hideCellType: hideCellType }, dispatch)
+  return bindActionCreators({hideColumn: hideColumn }, dispatch)
 }
 
 function mapStateToProps(state) {
@@ -48,10 +51,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HideCellType);
+export default connect(mapStateToProps, mapDispatchToProps)(HideColumn);
 
-HideCellType.propTypes = {
-  cellType: PropTypes.string,
+HideColumn.propTypes = {
+  columnID: PropTypes.string,
   label: PropTypes.string,
   // active: PropTypes.bool
 };
