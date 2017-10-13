@@ -10,8 +10,9 @@ const Wirex_Plastic_Verified_GBP = {
   cardType: o.PLASTIC,
   instantCryptoPayment: false,
 
-  idRequired: true,
-  addressRequired: true,
+  isVerificationRequired: true,
+  proofOfAddressRequired: true,
+  proofOfIdentityRequired: true,
 
   monthlyFee: `${o.GBP}1`,
   annualFee: `${o.GBP}12*`,
@@ -33,8 +34,8 @@ const Wirex_Plastic_Verified_GBP = {
   currencyConversion: 0,
 
   connectedWallets: [o.EUR, o.USD, o.GBP, o.BTC],
-  twoFactorsAuth: true,
-  cashBack: 0,
+  twoFactorsAuth: false,
+  cashBack: '5%',
 
   app_IOS: true,
   app_Android: true,

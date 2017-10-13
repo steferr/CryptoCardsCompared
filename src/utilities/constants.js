@@ -11,6 +11,7 @@
 //
 // time: INTEGER (days)
 // percentages: FLOAT (%)
+// verificationType: [o.POI, o.POA] in this order
 
 // colors
 export const PRIMARY = '#4F87FB'
@@ -36,6 +37,9 @@ export const PLASTIC = 'Plastic'
 export const VIRTUAL = 'Virtual'
 export const VISA = 'Visa'
 export const MASTERCARD = 'Mastercard'
+export const NONE = 'None'
+export const POI = 'Proof of Identity'
+export const POA = 'Proof of Address'
 export const IOS = 'iOS'
 export const ANDROID = 'Android'
 export const WEBAPP = 'Web App'
@@ -44,9 +48,25 @@ export const USD = 'USD'
 export const GBP = 'GBP'
 export const BTC = 'BTC'
 export const LTC = 'LTC'
-
 // Companies
 export const WIREX = 'Wirex'
+export const XAPO = 'Xapo'
+
+
+
+
+// Column Groups. needed for Hiding the columns. the value can be anything.
+// When not needed it takes the same value as columnID
+// for column groups the value can become the column group title on the UI?
+export const CARD_DELIVERY_EXPRESS = 'cardDeliveryExpress'
+export const CARD_DELIVERY_STANDARD = 'Card Delivery Std.'
+export const ATM_WITHDRAWAL_FEE = 'ATM Withdrawal Fee'
+export const CARD_REPLACEMENT = 'Card Replacement'
+export const ATM_TRANSACTION_NUMBER = 'Number of ATM Transactions'
+export const PURCHASES_TOTAL_NUMBER = 'Number of Purchases'
+export const ATM_WITHDRAWAL_AMOUNT = 'ATM Withdrawal Amount'
+export const PURCHASES_TOTAL_SPENDING = 'Total Spending Amount'
+export const WALLET_LOAD_TYPES = 'WalletLoad_Types'
 
 // Column IDs, on the right it must be the same as the state key, otherwhise the sorting won't work
 export const CARD_ID = 'cardID'
@@ -58,7 +78,7 @@ export const SPENDING_CURRENCY = 'spendingCurrency'
 export const CARD_TYPE = 'cardType'
 export const PREPAID_OR_INSTANT_CRYPTO = 'instantCryptoPayment'
 
-export const VERIFICATION_TYPE = 'verificaionType'
+export const VERIFICATION_TYPE = 'verificationType'
 export const ADDRESS_REQUIRED = 'addressRequired'
 export const ANNUAL_COST = 'annualFee'
 
@@ -77,14 +97,14 @@ export const CARD_REPLACEMENT_EXP_TIME = 'cardReplacementExpTime'
 export const CURRENCY_CONVERSION = 'currencyConversion'
 export const CONNECTED_WALLETS = 'connectedWallets'
 export const TWO_FACTORS_AUTH = 'twoFactorsAuth'
-export const APP = 'APP'
+export const APPS = 'Apps'
 export const CASH_BACK = 'cashBack'
 export const PIN_CHANGE = 'pinChange'
 
 export const ATM_DOMESTIC_WIDTHRAWAL_FEE = 'ATM_Domestic_Widthrawal_Fee'
 export const ATM_INTERNATIONAL_WITHDRAWAL_FEE = 'ATM_International_Withdrawal_Fee'
 export const ATM_BALANCEINQUIRY_FEE = 'ATM_BalanceInquiry_Fee'
-export const ATM_TRANSACTIONNUMBER_SINGLE = 'ATM_TransactionNumber_Single'
+// export const ATM_TRANSACTIONNUMBER_SINGLE = 'ATM_TransactionNumber_Single'
 export const ATM_TRANSACTIONNUMBER_24H = 'ATM_TransactionNumber_24h'
 export const ATM_TRANSACTIONNUMBER_MONTH = 'ATM_TransactionNumber_Month'
 export const ATM_TRANSACTIONNUMBER_YEAR = 'ATM_TransactionNumber_Year'
@@ -121,7 +141,6 @@ export const WALLETLOAD_TOTAL_AMOUNT = 'WalletLoad_Total_amount'
 export const WALLETUNLOAD_TOTAL_AMOUNT = 'WalletUnload_Total_amount'
 export const CARDLOAD_TOTAL_AMOUNT = 'CardLoad_Total_amount'
 export const CARRDUNLOAD_TOTAL_AMOUNT = 'CarrdUnload_Total_amount'
-export const WALLETLOAD_TYPES = 'WalletLoad_Types'
 export const WALLETLOAD_CARD_AVAILABLE = 'WalletLoad_Card_available'
 export const WALLETLOAD_CARD_FEE = 'WalletLoad_Card_fee'
 export const WALLETLOAD_CARD_AMOUNT_24H = 'WalletLoad_Card_amount_24h'

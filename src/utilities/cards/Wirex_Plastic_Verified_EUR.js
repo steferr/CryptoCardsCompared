@@ -10,8 +10,9 @@ const Wirex_Plastic_Verified_EUR = {
   cardType: o.PLASTIC,
   instantCryptoPayment: false,
 
-  idRequired: true,
-  addressRequired: true,
+  isVerificationRequired: true,
+  proofOfAddressRequired: true,
+  proofOfIdentityRequired: true,
 
   monthlyFee: `${o.EUR}1`,
   annualFee: `${o.EUR}12*`,

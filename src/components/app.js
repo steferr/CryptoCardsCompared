@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-// import ScrollArea from 'react-scrollbar';
-// import BookDetail from '../containers/active_book'
-// import ScrollBarSte from '../containers/scroll_bar_ste'
+import { connect } from 'react-redux';
+import { updateWindowSize } from '../actions/index'
+import { bindActionCreators } from 'redux';
 import Nav from './nav';
-import ScrollContainer from '../containers/ScrollContainer'
+import Home from '../components/Home'
 import Filters from './Filters'
-import ShowCellContainer from '../containers/ShowColumnContainer'
-import TransitionMotionTest from './TransitionMotionTest'
-import MotionTest from './MotionTest'
+import HiddenColumns from '../containers/HiddenColumns'
+import TransitionMotionTest from './animations/TransitionMotionTest'
+import RedBar from './animations/RedBar'
+import MotionTest from './animations/MotionTest'
+import { Route, Link } from 'react-router-dom'
+import About from './about'
 
-export default class App extends Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { width: '0', height: '0' };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
   // le seguenti 3 funzioni servono per ridimensionare correttamente le barre
@@ -28,29 +30,86 @@ export default class App extends Component {
   }
 
   updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
+    // this.setState({ width: window.innerWidth, height: window.innerHeight });
+    this.props.updateWindowSize(window.innerWidth, window.innerHeight)
   }
   // <BookDetail />
   render() {
     // console.log(window.innerHeight);
-    const altezzaHeader = 60+80+72
+    // console.log(this.props);
+    // const altezzaHeader = 60+80+72
     // let {'cacca', 'pipi', {key1: 1, key2: 2}} = this.eventPreviousValues;
     // console.log('merda');
     // let innerWidth = window.innerWidth
+    // console.log(this.props.state);
+    // <header>
+    // <Link to="/">Home</Link>
+    // <Link to="/about">About</Link>
+    // </header>
+
     return (
       <div>
-      <Nav />
+      <Nav windowSize = {this.props.windowSize}/>
 
-      <Filters />
-      <ScrollContainer />
-      <ShowCellContainer />
+      <Route exact path="/" component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/motion" component={MotionTest} />
+      <Route path="/blue" component={TransitionMotionTest} />
+      <Route path="/red" component={RedBar} />
+
+
       </div>
     );
   }
 }
+// <Filters />
+// <ScrollContainer />
+//
+// <HiddenColumns />
 // <MotionTest />
 // <TransitionMotionTest />
 
+
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({updateWindowSize: updateWindowSize }, dispatch)
+}
+
+function mapStateToProps(state) {
+  return {
+    windowSize: state.mainReducer.windowSize,
+    state: state //if i remove this the routing doesn't work anymore
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+
+
+// import React from 'react';
+// import { Route, Link } from 'react-router-dom'
+// import Nav from './Nav'
+// import ButtonPrimary from './ButtonPrimary'
+//
+// const App = () => (
+//   <div>
+//     <div>
+//     <header>
+//     <Link to="/">Nav</Link>
+//     <Link to="/button">ButtonPrimary</Link>
+//     </header>
+//
+//     <main>
+//     <Route exact path="/" component={Nav} />
+//     <Route exact path="/button" component={ButtonPrimary} />
+//     </main>
+//     </div>
+//   </div>
+// )
+// // <h1>dio merda</h1>
+//
+// export default App
 
 
 // <h1>AFFASOIVJLKN</h1>

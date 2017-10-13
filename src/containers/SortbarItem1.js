@@ -3,31 +3,49 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { sortBy } from '../actions/index'
-import HideColumn from './HideColumn'
+import HideColumnButton from './HideColumnButton'
 import SortIcon from '../components/SortIcon'
 import { GREY_MEDIUM } from '../utilities/constants'
 
 const SortBarItem1 = (props) => {
-  if (props.hiddenColumns.includes(props.columnID))
+
+  const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    width: `${props.width}px`,
+    userSelect: 'none',
+    // borderRight: `1px solid ${GREY_MEDIUM}`
+    boxShadow: `1px 0px ${GREY_MEDIUM}`
+  }
+  // console.log(props.columnGroup);
+  if (props.hiddenColumns.includes(props.columnGroup))
     return <div></div>
+  else if (!props.isSortable){
+    return (
+      <div style={ containerStyle }>
+        <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+          <div
+          style={Object.assign({cursor: 'default'}, props.style, children)}
+          >
+          {props.title}
+          </div>
+        </div>
+        <div style={children}>
+          <HideColumnButton columnGroup={props.columnGroup} label={'hide'}/>
+        </div>
+      </div>
+    )
+  }
+
   else {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      width: props.width,
-      userSelect: 'none',
-      borderRight: `1px solid ${GREY_MEDIUM}`
-    }}>
+    <div style={ containerStyle }>
 
       <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
         <div
         style={Object.assign({cursor: 'pointer'}, props.style, children)}
         onClick={() => {
-          // props.sortBy(props.contentType)
           props.sortBy(props.columnID, props.contentType)
-          // console.log(props.contentType);
-          // mandare un'azione con contenuto diverso a seconda del contenuto
         }}
         >
         {props.title}
@@ -36,13 +54,14 @@ const SortBarItem1 = (props) => {
       </div>
 
       <div style={children}>
-        <HideColumn columnID={props.columnID} label={'hide'}/>
+        <HideColumnButton columnGroup={props.columnGroup} label={'hide'}/>
       </div>
 
     </div>
   )}
 
 }
+
 // export default SortBarItem
 
 function mapDispatchToProps(dispatch) {
@@ -53,9 +72,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    hiddenColumns: state.hiddenColumns,
-    sortedBy: state.sortedBy,
-    isDescendant: state.isDescendant
+    hiddenColumns: state.mainReducer.hiddenColumns,
+    sortedBy: state.mainReducer.sortedBy,
+    isDescendant: state.mainReducer.isDescendant
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SortBarItem1)
@@ -69,7 +88,8 @@ SortBarItem1.propTypes = {
   title: PropTypes.string,
   contentType: PropTypes.string,
   // status: PropTypes.string,
+  isSortable: PropTypes.bool.isRequired,
   style: PropTypes.object,
-  width: PropTypes.string,
+  width: PropTypes.number.isRequired,
 
 };

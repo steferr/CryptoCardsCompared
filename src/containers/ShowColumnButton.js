@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { showColumn } from '../actions/index'
 import PropTypes from 'prop-types';
+import { PRIMARY } from '../utilities/constants'
 
-class ShowColumn extends Component {
+class ShowColumnButton extends Component {
   constructor (props) {
     super(props)
   }
@@ -14,8 +15,8 @@ class ShowColumn extends Component {
 //
     return(
       <div>
-        <button onClick={() => this.props.showColumn(this.props.showColumn(this.props.columnID))} style={normal}>
-          {this.props.label}
+        <button style={normal}>
+          Show
         </button>
       </div>
     )
@@ -33,21 +34,21 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowColumn);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowColumnButton);
 
-ShowColumn.propTypes = {
+ShowColumnButton.propTypes = {
   columnID: PropTypes.string,
   label: PropTypes.string,
   // active: PropTypes.bool
 };
 
 const normal = {
-  borderRadius: '100px',
+  // borderRadius: '100px',
   border: 'none',
   padding: '1px 4px',
   fontSize: '12px',
-  color: 'grey',
+  color: PRIMARY,
   outline: 'none',
-  backgroundColor: '#e5e5e5',
+  backgroundColor: '#fff',
   cursor: 'pointer',
 }

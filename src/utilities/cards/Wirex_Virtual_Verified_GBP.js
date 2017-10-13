@@ -10,8 +10,9 @@ const Wirex_Virtual_Verified_GBP = {
   cardType: o.VIRTUAL,
   instantCryptoPayment: false,
 
-  idRequired: true,
-  addressRequired: true,
+  isVerificationRequired: true,
+  proofOfAddressRequired: true,
+  proofOfIdentityRequired: true,
 
   monthlyFee: `${o.GBP}1`,
   annualFee: `${o.GBP}12*`,

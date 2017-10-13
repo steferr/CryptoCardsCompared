@@ -1,57 +1,38 @@
 import React, { Component } from 'react';
-import HideColumn from './HideColumn'
+import HideColumnButton from './HideColumnButton'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { filterBy } from '../actions/index'
+import { filterBy, filterVerification } from '../actions/index'
 import { Motion, spring } from 'react-motion'
 import { buttonFiltersStyle, buttonFiltersActiveStyle } from '../utilities/styles'
 import { PRIMARY, PRIMARY_DARKER } from '../utilities/constants'
-// import React, {Component} from 'react';
-// import ReactDOM from 'react-dom';
-// import { bindActionCreators } from 'redux';
-// import { connect } from 'react-redux';
-// import { selectBook } from '../actions/index';
-
-
 
 class FilterItem extends Component {
   constructor(props) {
     super(props)
-    // this.getStyle = this.getStyle.bind(this)
     this.state = {
       active: false
     }
   }
-  // console.log(props.keyToFilter);
-  // console.log(props.keyToFilter);
-  // getStyle() {
-  //   var active = {background: '#FED678'}
-  //   if (this.state.active)
-  //     return active
-  //   else return {background: '#e5e5e5'}
-  // }
   updateState() {
     this.setState({
       active: !this.state.active
     })
   }
   render() {
-    // console.log(this.state.active);
-    // console.log(buttonFiltersStyle);
-    // console.log(buttonFiltersActiveStyle);
-    // console.log(this.state.active);
     const statico = this.state.active ? buttonFiltersActiveStyle : buttonFiltersStyle
-    // const animationPreset = { stiffness: 300, damping: 12 }
+    const animationPreset = { stiffness: 390, damping: 30 }
     const dinamico = {
-      fontSize: this.state.active ? spring(12) : spring(12),
+      fontSize: this.state.active ? spring(14) : spring(12),
+      height: this.state.active ? spring(40, animationPreset) : spring(32, animationPreset),
     }
-    // console.log(this.props.activeFilters);
     return (
       <div
+      style={{flexGrow: '1', display:'flex'}}
       onClick={()=>{
-        this.props.filterBy(this.props.keyToFilter, this.props.valueToFilter)
         this.updateState()
+        this.props.filterBy(this.props.keyToFilter, this.props.valueToFilter)
       }}>
 
       <Motion style={dinamico}>
@@ -59,6 +40,7 @@ class FilterItem extends Component {
           return(
               <div style={Object.assign( {}, statico, {
                 fontSize: `${interpolatedStyle.fontSize}px`,
+                height: `${interpolatedStyle.height}px`
               })}>
                 {this.props.label}
               </div>
@@ -78,7 +60,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({filterBy: filterBy}, dispatch)
+  return bindActionCreators({filterBy: filterBy, filterVerification: filterVerification}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterItem)

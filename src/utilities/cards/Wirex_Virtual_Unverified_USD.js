@@ -10,8 +10,9 @@ const Wirex_Virtual_Unverified_USD = {
   cardType: o.VIRTUAL,
   instantCryptoPayment: false,
 
-  idRequired: false,
-  addressRequired: false,
+  isVerificationRequired: false,
+  proofOfAddressRequired: false,
+  proofOfIdentityRequired: false,
 
   monthlyFee: `${o.USD}1`,
   annualFee: `${o.USD}12*`,

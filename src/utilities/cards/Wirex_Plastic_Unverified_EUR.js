@@ -10,8 +10,10 @@ const Wirex_Plastic_Unverified_EUR = {
   cardType: o.PLASTIC,
   instantCryptoPayment: false,
 
-  idRequired: false,
-  addressRequired: false,
+  isVerificationRequired: false,
+  proofOfAddressRequired: false,
+  proofOfIdentityRequired: false,
+
 
   monthlyFee: `${o.EUR}1`,
   annualFee: `${o.EUR}12*`,

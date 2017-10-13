@@ -51,6 +51,7 @@ class CardItemDetail extends Component {
       // width: `${this.props.width-32}px`,
       // border: '1px solid red',
     }
+    const padding = 16
     const containerStyle = {
       display: 'flex',
       flexDirection: 'column',
@@ -58,12 +59,14 @@ class CardItemDetail extends Component {
       alignItems: 'center',
       margin: '0px 0px 0px 0px',
       textAlign: 'center',
-      width: this.props.width,
-      borderRight: `1px solid ${GREY_MEDIUM}`,
+      padding: padding,
+      width: `${this.props.width-(2*padding)}px` ,
+      // borderRight: `1px solid ${GREY_MEDIUM}`,
+      boxShadow: `1px 0px ${GREY_MEDIUM}`
       // overflow: 'hidden',
     }
 
-    if (this.props.hiddenColumns.includes(this.props.columnID))
+    if (this.props.hiddenColumns.includes(this.props.columnGroup))
       return <div></div>
     else {
     return (
@@ -87,7 +90,7 @@ class CardItemDetail extends Component {
 
 function mapStateToProps(state) {
   return {
-    hiddenColumns: state.hiddenColumns
+    hiddenColumns: state.mainReducer.hiddenColumns
   }
 }
 
@@ -99,6 +102,6 @@ CardItemDetail.propTypes = {
   content: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   visible: PropTypes.bool,
   style: PropTypes.object,
-  width: PropTypes.string.isRequired,
-  // active: PropTypes.bool
+  width: PropTypes.number.isRequired,
+  // columnID: PropTypes.string.isRequired,
 };

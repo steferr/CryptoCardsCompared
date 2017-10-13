@@ -25,38 +25,34 @@ import {GREY_LIGHT} from '../utilities/constants'
 // />
 
 class CardListItem extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      y: 0
-    }
-  }
-  componentDidMount() {
-    // console.log(ReactDOM.findDOMNode(this.refs.listItem).getBoundingClientRect());
-    this.setState({
-      y: ReactDOM.findDOMNode(this.refs.listItem).getBoundingClientRect().top
-    })
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     y: 0
+  //   }
+  // }
+  // componentDidMount() {
+  //   // console.log(ReactDOM.findDOMNode(this.refs.listItem).getBoundingClientRect());
+  //   this.setState({
+  //     y: ReactDOM.findDOMNode(this.refs.listItem).getBoundingClientRect().top
+  //   })
+  // }
   getContent_PREPAID_OR_INSTANT_CRYPTO() {
     if (this.props.card.instantCryptoPayment)
       return 'Instant Crypto Payment'
     else return 'Prepaid Card'
   }
   getContent_VERIFICATION_TYPE() {
-    if ( this.props.card.idRequired ) {
-      if ( this.props.card.addressRequired ) {
-        return 'Proof of ID & Address'
-      }
-      else {
-        return 'Proof of ID'
-      }
-    }
-    else {
-      if ( this.props.card.addressRequired ) {
-        return 'Proof of Address'
-      }
-      else return 'none'
-    }
+    // var array = this.props.card.verificationType
+    let card = this.props.card
+    if ( !card.isVerificationRequired )
+      return 'not required'
+    if ( card.proofOfAddressRequired && card.proofOfIdentityRequired )
+      return 'P. of Identity & P.of Address'
+    if ( !card.proofOfAddressRequired && card.proofOfIdentityRequired )
+      return 'Proof of Identity'
+    if ( card.proofOfAddressRequired && !card.proofOfIdentityRequired )
+      return 'Proof of Address'
   }
   getContent_APP() {
     if (this.props.card.app_IOS) {
@@ -114,7 +110,9 @@ class CardListItem extends Component {
     return formattedPrice
   }
   formatPercentage(percentage) {
-    return `${percentage} %`
+    if (percentage == 0)
+      return '0 %'
+    return percentage.replace('%', ' %')
   }
   formatTick(bool) {
     if (bool) return 'yes'
@@ -141,146 +139,163 @@ class CardListItem extends Component {
         <div style={container} key ={card.cardID} onClick = {this.props.onClick}
          ref={'listItem'}
         >
-          <CardItemOverview
-          cardIssuer = { card.cardIssuer }
-          offsetY = { this.props.offsetY }
-          listItemYCoordinates = { this.state.y }
-          spendingCurrency = { card.spendingCurrency }
-          cardName = { card.cardName }
-          company = { card.company }
-          cardType = { card.cardType }
-          {...this.props}
-          />
+        <CardItemOverview
+        cardIssuer = { card.cardIssuer }
+        // listItemYCoordinates = { this.state.y }
+        spendingCurrency = { card.spendingCurrency }
+        cardName = { card.cardName }
+        company = { card.company }
+        cardType = { card.cardType }
+        {...this.props}
+        />
           <div style={cardDetailContainerStyle}>
             <CardItemDetail
+              columnGroup = {o.VERIFICATION_TYPE}
               columnID = {o.VERIFICATION_TYPE}
               contentType = {o.PARAGRAPH}
               content={this.getContent_VERIFICATION_TYPE()}
               style={Object.assign({}, interni, categoria)}
-              width={'128px'}
+              width={128}
             />
 
             <CardItemDetail
+              columnGroup = {o.CARD_ISSUANCE_PRICE}
               columnID = {o.CARD_ISSUANCE_PRICE}
               contentType = {o.PRICE}
               content={this.formatPrice(card.cardIssuancePrice)}
               style={Object.assign({}, interni, categoria)}
-              width={'128px'}
+              width={128}
             />
             <CardItemDetail
+            columnGroup = {o.ANNUAL_COST}
             columnID = {o.ANNUAL_COST}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.annualFee)}
             style={Object.assign({}, interni, categoria)}
-            width={'144px'}
+            width={144}
             />
             <CardItemDetail
+            columnGroup = {o.CURRENCY_CONVERSION}
             columnID = {o.CURRENCY_CONVERSION}
             contentType = {o.PERCENTAGE}
             content = {this.formatPercentage(card.currencyConversion)}
             style={Object.assign({}, interni, categoria)}
-            width={'168px'}
+            width={168}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_WITHDRAWAL_FEE}
             columnID = {o.ATM_DOMESTIC_WIDTHRAWAL_FEE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.ATM_Domestic_Widthrawal_Fee)}
             style={Object.assign({}, interni, categoria)}
-            width={'136px'}
+            width={136}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_WITHDRAWAL_FEE}
             columnID = {o.ATM_INTERNATIONAL_WITHDRAWAL_FEE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.ATM_International_Withdrawal_Fee)}
             style={Object.assign({}, interni, categoria)}
-            width={'136px'}
+            width={136}
             />
             <CardItemDetail
+            columnGroup = {o.CASH_BACK}
             columnID = {o.CASH_BACK}
             contentType = {o.PERCENTAGE}
             content = {this.formatPercentage(card.cashBack)}
             style={Object.assign({}, interni, categoria)}
-            width={'136px'}
+            width={136}
             />
             <CardItemDetail
+            columnGroup = {o.PIN_CHANGE}
             columnID = {o.PIN_CHANGE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.pinChange)}
             style={Object.assign({}, interni, categoria)}
-            width={'136px'}
+            width={136}
             />
             <CardItemDetail
-              columnID = {o.APP}
+              columnGroup = {o.APPS}
+              columnID = {o.APPS}
               contentType = {o.PARAGRAPH}
               content={this.getContent_APP()}
               style={Object.assign({}, interni, categoria)}
-              width={'136px'}
+              width={136}
             />
 
             <CardItemDetail
+            columnGroup = {o.TWO_FACTORS_AUTH}
             columnID = {o.TWO_FACTORS_AUTH}
             contentType = {o.TICK}
             content = {this.formatTick(card.twoFactorsAuth)}
             style={Object.assign({}, interni, categoria)}
-            width={'136px'}
+            width={136}
             />
 
             <CardItemDetail
+            columnGroup = {o.CARD_DELIVERY_STANDARD}
             columnID = {o.CARD_DELIVERY_STD_TIME}
             contentType = {o.TIME}
             content = {this.formatTimeSpan(card.cardDeliveryStdTimeMin, card.cardDeliveryStdTimeMax)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.CARD_DELIVERY_STANDARD}
             columnID = {o.CARD_DELIVERY_STD_PRICE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.cardDeliveryStdPrice)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
 
             <CardItemDetail
+            columnGroup = {o.CARD_DELIVERY_EXPRESS}
             columnID = {o.CARD_DELIVERY_EXP_TIME}
             contentType = {o.TIME}
             content = {this.formatTimeSpan(card.cardDeliveryExpTimeMin, card.cardDeliveryExpTimeMax)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.CARD_DELIVERY_EXPRESS}
             columnID = {o.CARD_DELIVERY_EXP_PRICE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.cardDeliveryExpPrice)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
 
             <CardItemDetail
+            columnGroup = {o.CARD_REPLACEMENT}
             columnID = {o.CARD_REPLACEMENT_STD_PRICE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.cardReplacementStdPrice)}
             style={Object.assign({}, interni, categoria)}
-            width={'108px'}
+            width={108}
             />
 
             <CardItemDetail
+            columnGroup = {o.CARD_REPLACEMENT}
             columnID = {o.CARD_REPLACEMENT_EXP_PRICE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.cardReplacementExpPrice)}
             style={Object.assign({}, interni, categoria)}
-            width={'108px'}
+            width={108}
             />
 
             <CardItemDetail
+            columnGroup = {o.CONNECTED_WALLETS}
               columnID = {o.CONNECTED_WALLETS}
               contentType = {o.PARAGRAPH}
               content={this.getContent_CONNECTED_WALLETS(card.connectedWallets)}
               style={Object.assign({}, interni, categoria)}
-              width={'160px'}
+              width={160}
             />
 
             <CardItemDetail
-              columnID = {o.WALLETLOAD_TYPES}
+            columnGroup = {o.WALLET_LOAD_TYPES}
+              columnID = {o.WALLET_LOAD_TYPES}
               contentType = {o.PARAGRAPH}
               content={this.getContent_WALLETLOAD_TYPES(
                 card.WalletLoad_Card_available,
@@ -290,139 +305,157 @@ class CardListItem extends Component {
                 card.WalletLoad_Payeer_available,
               )}
               style={Object.assign({}, interni, categoria)}
-              width={'128px'}
+              width={128}
             />
 
             <CardItemDetail
+            columnGroup = {o.ATM_TRANSACTION_NUMBER}
             columnID = {o.ATM_TRANSACTIONNUMBER_24H}
             contentType = {o.NUMBER}
             content = {card.ATM_TransactionNumber_24h}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_TRANSACTION_NUMBER}
             columnID = {o.ATM_TRANSACTIONNUMBER_MONTH}
             contentType = {o.NUMBER}
             content = {card.ATM_TransactionNumber_Month}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_TRANSACTION_NUMBER}
             columnID = {o.ATM_TRANSACTIONNUMBER_YEAR}
             contentType = {o.NUMBER}
             content = {card.ATM_TransactionNumber_Year}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_TRANSACTION_NUMBER}
             columnID = {o.ATM_TRANSACTIONNUMBER_LIFETIME}
             contentType = {o.NUMBER}
             content = {card.ATM_TransactionNumber_Lifetime}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
 
 
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_NUMBER}
             columnID = {o.PURCHASES_TOTAL_NUMBER_24H}
             contentType = {o.NUMBER}
             content = {card.Purchases_Total_number_24h}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_NUMBER}
             columnID = {o.PURCHASES_TOTAL_NUMBER_MONTH}
             contentType = {o.NUMBER}
             content = {card.Purchases_Total_number_month}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_NUMBER}
             columnID = {o.PURCHASES_TOTAL_NUMBER_YEAR}
             contentType = {o.NUMBER}
             content = {card.Purchases_Total_number_year}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_NUMBER}
             columnID = {o.PURCHASES_TOTAL_NUMBER_LIFETIME}
             contentType = {o.NUMBER}
             content = {card.Purchases_Total_number_lifetime}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
 
 
             <CardItemDetail
+            columnGroup = {o.ATM_WITHDRAWAL_AMOUNT}
             columnID = {o.ATM_WITHDRAWALAMOUNT_SINGLE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.ATM_WithdrawalAmount_Single)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_WITHDRAWAL_AMOUNT}
             columnID = {o.ATM_WITHDRAWALAMOUNT_24H}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.ATM_WithdrawalAmount_24h)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_WITHDRAWAL_AMOUNT}
             columnID = {o.ATM_WITHDRAWALAMOUNT_MONTH}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.ATM_WithdrawalAmount_Month)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_WITHDRAWAL_AMOUNT}
             columnID = {o.ATM_WITHDRAWALAMOUNT_YEAR}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.ATM_WithdrawalAmount_Year)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.ATM_WITHDRAWAL_AMOUNT}
             columnID = {o.ATM_WITHDRAWALAMOUNT_LIFETIME}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.ATM_WithdrawalAmount_Lifetime)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
 
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_SPENDING}
             columnID = {o.PURCHASES_TOTAL_SPENDING_SINGLE}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.Purchases_Total_spending_single)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_SPENDING}
             columnID = {o.PURCHASES_TOTAL_SPENDING_24H}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.Purchases_Total_spending_24h)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_SPENDING}
             columnID = {o.PURCHASES_TOTAL_SPENDING_MONTH}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.Purchases_Total_spending_month)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_SPENDING}
             columnID = {o.PURCHASES_TOTAL_SPENDING_YEAR}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.Purchases_Total_spending_year)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
             <CardItemDetail
+            columnGroup = {o.PURCHASES_TOTAL_SPENDING}
             columnID = {o.PURCHASES_TOTAL_SPENDING_LIFETIME}
             contentType = {o.PRICE}
             content = {this.formatPrice(card.Purchases_Total_spending_lifetime)}
             style={Object.assign({}, interni, categoria)}
-            width={'84px'}
+            width={84}
             />
 
 

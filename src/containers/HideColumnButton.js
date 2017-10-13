@@ -5,14 +5,15 @@ import { hideColumn } from '../actions/index';
 import PropTypes from 'prop-types';
 import { PRIMARY } from '../utilities/constants'
 
-class HideColumn extends Component {
+class HideColumnButton extends Component {
   constructor (props) {
     super(props)
   }
 
   render() {
+    // console.log(this.props);
     return (
-      <div onClick={() => this.props.hideColumn(this.props.columnID)} style={normal}>
+      <div onClick={() => this.props.hideColumn(this.props.columnGroup)} style={normal}>
         {this.props.label}
       </div>
     )
@@ -51,10 +52,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HideColumn);
+export default connect(mapStateToProps, mapDispatchToProps)(HideColumnButton);
 
-HideColumn.propTypes = {
-  columnID: PropTypes.string,
+HideColumnButton.propTypes = {
+  columnGroup: PropTypes.string.isRequired,
   label: PropTypes.string,
   // active: PropTypes.bool
 };

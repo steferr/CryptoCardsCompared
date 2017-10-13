@@ -1,87 +1,95 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { showFilters } from '../actions/index'
 import FilterItem from '../containers/FilterItem'
-import Radium from 'radium'
 import { filterTitleStyle } from '../utilities/styles'
 import * as o from '../utilities/constants'
+import ClosePanelButton from './ClosePanelButton'
+import {PRIMARY} from '../utilities/constants'
+import { TransitionMotion, spring } from 'react-motion'
+import FiltersExpanded from './FiltersExpanded'
+import { animationPreset1 } from '../utilities/animations'
+import { shadowButtonsPrimary } from '../utilities/styles'
+
 
 const Filters = (props) => {
-  // console.log(filterTitleStyle);
+
+  const filterCollapsed = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'fixed',
+    bottom: '16px',
+    right: '16px',
+    width: '140px',
+    height: '40px',
+    borderRadius: '100px',
+    backgroundColor: PRIMARY,
+    color: '#fff',
+    zIndex: '20',
+    cursor: 'pointer',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+    letterSpacing: '3px',
+    boxShadow: shadowButtonsPrimary,
+  }
+
+  const willEnter = () => {
+    // console.log('ClosePanelButton willEnter');
+    return {width: 0, height: 0, fontSize: 0}
+  }
+  const willLeave = () => {
+    // console.log('ClosePanelButton willLeave');
+    return {width: spring(0, animationPreset1), height: spring(0, animationPreset1), fontSize: spring(0, animationPreset1)};
+  }
+  const getStyles = () => {
+    return props.areFiltersVisible ? [] : [{
+      key: 'ClosePanelButton',
+      style: {width: spring(140, animationPreset1), height: spring(40, animationPreset1), fontSize: spring(12)},
+    }]
+  }
+
   return (
-    <div style = {{
-      position: 'fixed',
-      zIndex: '20',
-      bottom: '0px',
-      height: '80px',
-      width: '100%',
-      background: '#fff',
-      borderTop: `1px solid ${o.GREY_MEDIUM}`
-    }}>
-    <div style={{height: '100%', display: 'flex', alignItems: 'center', }}>
+    <div style={{userSelect: 'none'}}>
+      <FiltersExpanded isMounted={props.areFiltersVisible}/>
 
-      <div style={askjdfn}>
-        <div>
-          <h5 style={filterTitleStyle}>Card Type</h5>
-        </div>
-        <div style={{display: 'flex'}}>
-          <FilterItem keyToFilter='cardType' valueToFilter = {o.PLASTIC} label='Plastic'/>
-          <FilterItem keyToFilter='cardType' valueToFilter = {o.VIRTUAL} label='Virtual'/>
-        </div>
-      </div>
 
-      <div style={askjdfn}>
-        <div>
-          <h5 style={filterTitleStyle}>Spending Currency</h5>
-        </div>
-        <div style={{display: 'flex'}}>
-          <FilterItem keyToFilter='spendingCurrency' valueToFilter = {o.EUR} label='€'/>
-          <FilterItem keyToFilter='spendingCurrency' valueToFilter = {o.USD} label='$'/>
-          <FilterItem keyToFilter='spendingCurrency' valueToFilter = {o.GBP} label='£'/>
-        </div>
-      </div>
+      <TransitionMotion
+        willEnter={willEnter}
+        willLeave={willLeave}
+        defaultStyles={[{
+          key: 'ClosePanelButton',
+          style: { width: 0, height: 0, fontSize: 0}
+        }]}
+        styles={getStyles()}>
+        { (items) => {
+          return (
+            <div onClick={()=>props.showFilters(true)}>
+              { items.map(item => {
+                return (
+                  <div key={item.key} style={Object.assign({}, filterCollapsed, props.style, item.style )}>
+                    Filters
+                  </div>
+                )
+              })}
+            </div>
+          )}}
+      </TransitionMotion>
 
-      <div style={askjdfn}>
-        <div>
-          <h5 style={filterTitleStyle}>Required Verification</h5>
-        </div>
-        <div style={{display: 'flex'}}>
-          <FilterItem keyToFilter ='idRequired' valueToFilter = {false} label='None'/>
-          <FilterItem keyToFilter ='idRequired' valueToFilter = {true} label='Id'/>
-          <FilterItem keyToFilter ='addressRequired' valueToFilter = {true} label='Addr.'/>
-        </div>
-      </div>
-
-      <div style={askjdfn}>
-        <div>
-          <h5 style={filterTitleStyle}>Crypto to FIAT at purch.</h5>
-        </div>
-        <div style={{display: 'flex'}}>
-          <FilterItem keyToFilter ='instantCryptoPayment' valueToFilter = {false} label='No'/>
-          <FilterItem keyToFilter ='instantCryptoPayment' valueToFilter = {true} label='Yes'/>
-        </div>
-      </div>
-
-      <div style={askjdfn}>
-        <div>
-          <h5 style={filterTitleStyle}>Card Acceptance</h5>
-        </div>
-        <div style={{display: 'flex'}}>
-        <FilterItem keyToFilter ='cardIssuer' valueToFilter = {o.MASTERCARD} label='MCard'/>
-        <FilterItem keyToFilter ='cardIssuer' valueToFilter = {o.VISA} label='Visa'/>
-        </div>
-      </div>
-
-    </div>
     </div>
   )
+
 }
 
-const askjdfn = {
-  flexGrow: '1',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  // height: '100%',
-  borderRight: `1px solid ${o.GREY_MEDIUM}`,
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({showFilters: showFilters }, dispatch)
 }
 
-export default Filters
+function mapStateToProps(state) {
+  return {
+    areFiltersVisible: state.mainReducer.areFiltersVisible
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

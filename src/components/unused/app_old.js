@@ -8,7 +8,7 @@ import BookDetail from '../containers/active_book'
 import SortBar from '../containers/SortBar'
 import Filters from '../containers/filters'
 import CardItemDetail from '../containers/card_list_item_cell'
-import ShowCellContainer from '../containers/ShowColumnContainer'
+import ShowCellContainer from '../containers/HiddenColumns'
 // import ScrollArea from './scroll_area';
 // import SimpleExample from './simple_example'
 

@@ -17,14 +17,14 @@ export default class MotionTest extends React.Component {
     this.handleMouseDown();
   };
 
-  renderTransitionMotionTest() {
-    // console.log(this.state.open);
-    if( this.state.open ) {
-      // return <TransitionMotionTest />
-      return (<TransitionMotionTest></TransitionMotionTest>)
-    }
-    return (<div></div>)
-  }
+  // renderTransitionMotionTest() {
+  //   // console.log(this.state.open);
+  //   if( this.state.open ) {
+  //     // return <TransitionMotionTest />
+  //     return ()
+  //   }
+  //   return (<div></div>)
+  // }
 
   render() {
 
@@ -54,7 +54,7 @@ export default class MotionTest extends React.Component {
     }
     // console.log(motionStyle);
     // console.log(motionStyle.a);
-    // console.log(this.renderTransitionMotionTest())
+    console.log(this.state.open)
     return (
       <div>
         <button
@@ -77,7 +77,7 @@ export default class MotionTest extends React.Component {
             )
           }}
         </Motion>
-        {this.renderTransitionMotionTest()}
+        <TransitionMotionTest isMounted={this.state.open}></TransitionMotionTest>
       </div>
     );
   };

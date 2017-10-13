@@ -12,6 +12,17 @@ import Wirex_Virtual_Unverified_GBP from '../utilities/cards/Wirex_Virtual_Unver
 import Wirex_Virtual_Verified_EUR from '../utilities/cards/Wirex_Virtual_Verified_EUR'
 import Wirex_Virtual_Verified_USD from '../utilities/cards/Wirex_Virtual_Verified_USD'
 import Wirex_Virtual_Verified_GBP from '../utilities/cards/Wirex_Virtual_Verified_GBP'
+import Xapo_Plastic_Verified_EUR from '../utilities/cards/Xapo_Plastic_Verified_EUR'
+import Xapo_Plastic_Verified_USD from '../utilities/cards/Xapo_Plastic_Verified_USD'
+import Xapo_Plastic_Verified_GBP from '../utilities/cards/Xapo_Plastic_Verified_GBP'
+import Xapo_Plastic_Unverified_EUR from '../utilities/cards/Xapo_Plastic_Unverified_EUR'
+import Xapo_Plastic_Unverified_USD from '../utilities/cards/Xapo_Plastic_Unverified_USD'
+import Xapo_Plastic_Unverified_GBP from '../utilities/cards/Xapo_Plastic_Unverified_GBP'
+
+
+
+
+
 import * as o from '../utilities/constants'
 // Conventions:
 // '' = NOT SPECIFIED
@@ -30,6 +41,12 @@ const cardList = [
   Wirex_Virtual_Verified_EUR,
   Wirex_Virtual_Verified_USD,
   Wirex_Virtual_Verified_GBP,
+  Xapo_Plastic_Verified_EUR,
+  Xapo_Plastic_Verified_USD,
+  Xapo_Plastic_Verified_GBP,
+  Xapo_Plastic_Unverified_EUR,
+  Xapo_Plastic_Unverified_USD,
+  Xapo_Plastic_Unverified_GBP,
 ]
 const initialState = {
   cardList : cardList,
@@ -393,11 +410,11 @@ export default (state = initialState, action) => {
 
 
     case 'SORT_BY':
-      // console.log('SORT_BY arrivato nel riduttore');
-      // console.log('action.contentType');
-      // console.log(action.contentType);
-      // console.log('action.columnID');
-      // console.log(action.columnID);
+      console.log('SORT_BY arrivato nel riduttore');
+      console.log('action.contentType');
+      console.log(action.contentType);
+      console.log('action.columnID');
+      console.log(action.columnID);
 
         var isDescendant = false
 
@@ -409,11 +426,27 @@ export default (state = initialState, action) => {
           var varA = {}
           var varB = {}
 
-          const culo = action.columnID
+          // if (a[action.columnID] === '' ) varA = 9999999999
+          // if (b[action.columnID] === '') varB = 9999999999
+
 
           if (action.contentType == o.WORD) {
             varA = a[action.columnID].toUpperCase()
             varB = b[action.columnID].toUpperCase()
+          }
+          else if (action.contentType == o.PARAGRAPH) {
+            varA = a[action.columnID].toUpperCase()
+            varB = b[action.columnID].toUpperCase()
+          }
+          else if (action.contentType == o.PERCENTAGE) {
+            if (a[action.columnID] == 0)
+              varA = 0
+            else
+              varA = parseFloat(a[action.columnID].substring(0, a[action.columnID].length-1))
+            if (b[action.columnID] == 0)
+              varB = 0
+            else
+              varB = parseFloat(b[action.columnID].substring(0, b[action.columnID].length-1))
           }
           else if (action.contentType == o.NUMBER) {
             varA = parseFloat(a[action.columnID])
@@ -426,6 +459,12 @@ export default (state = initialState, action) => {
           else if (action.contentType == o.TIME) {
             varA = parseFloat(a[action.columnID].replace('days', ''))
             varB = parseFloat(b[action.columnID].replace('days', ''))
+          }
+          else if (action.contentType == o.TICK) {
+            if (a[action.columnID]) varA = 1
+              else varA = 0
+            if (b[action.columnID]) varB = 1
+              else varB = 0
           }
 
           // if the button has been already pressed and the column is already sorted ascendently

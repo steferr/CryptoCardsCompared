@@ -11,6 +11,15 @@ export function selectBook(book) {
   }
 }
 
+export function updateWindowSize(width, height) {
+  // console.log(`updateWindowSize(${width}, ${height}) actionCreator`)
+  return {
+    type: 'UPDATE_WINDOW_SIZE',
+    width: width,
+    height: height,
+  }
+}
+
 export function showColumn(columnID) {
   // console.log(`actionCreator showColumn(${columnID}) called`);
   return {
@@ -19,35 +28,55 @@ export function showColumn(columnID) {
   }
 }
 
+export function showAllColumns() {
+  return {
+    type: 'SHOW_ALL_COLUMNS'
+  }
+}
+
 export function hideColumn(columnID) {
-  // console.log(`actionCreator HideColumn(${columnID}) called`);
+  // console.log(`actionCreator HideColumnButton(${columnID}) called`);
   return {
     type: 'HIDE_COLUMN',
     payload: columnID
   }
 }
 
-export function sortByNameAsc(cardList, order) {
-  // console.log(`actionCreator sortByNameAsc called`);
+export function expandHiddenColumns(isHiddenColumnsComponentExpanded) {
+  // console.log(`actionCreator expandHiddenColumns(${isHiddenColumnsComponentExpanded}) called`);
   return {
-    type: 'SORT_BY_NAME_ASC',
-    payload: order
+    type: 'EXPAND_HIDDEN_COLUMNS',
+    isHiddenColumnsComponentExpanded : isHiddenColumnsComponentExpanded
   }
 }
-export function sortByNameDes(cardList, order) {
-  // console.log(`actionCreator sortByNameAsc called`);
+
+export function showFilters(areFiltersVisible) {
   return {
-    type: 'SORT_BY_NAME_DES',
-    payload: order
+    type: 'SHOW_FILTERS',
+    areFiltersVisible: areFiltersVisible
   }
 }
-export function sortByName(cardList, direction) {
-  // console.log(`actionCreator sortByName called`);
-  return {
-    type: 'SORT_BY_NAME',
-    direction: direction,
-  }
-}
+// export function sortByNameAsc(cardList, order) {
+//   // console.log(`actionCreator sortByNameAsc called`);
+//   return {
+//     type: 'SORT_BY_NAME_ASC',
+//     payload: order
+//   }
+// }
+// export function sortByNameDes(cardList, order) {
+//   // console.log(`actionCreator sortByNameAsc called`);
+//   return {
+//     type: 'SORT_BY_NAME_DES',
+//     payload: order
+//   }
+// }
+// export function sortByName(cardList, direction) {
+//   // console.log(`actionCreator sortByName called`);
+//   return {
+//     type: 'SORT_BY_NAME',
+//     direction: direction,
+//   }
+// }
 
 
 export function sortBy(columnID, contentType) {
@@ -68,5 +97,14 @@ export function filterBy(keyToFilter, valueToFilter) {
     type: 'FILTER_BY',
     keyToFilter: keyToFilter,
     valueToFilter: valueToFilter,
+  }
+}
+
+export function filterVerification(keyToFilter, valueToFilter) {
+  // console.log(`actionCreator filterVerification, value: ${valueToFilter} called`);
+  return {
+    type: 'FILTER_VERIFICATION',
+    valueToFilter: valueToFilter,
+    keyToFilter: keyToFilter,
   }
 }

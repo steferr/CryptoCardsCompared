@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Radium from 'radium'
 import PropTypes from 'prop-types';
+import CardOverviewCurrency from './CardOverviewCurrency'
 // var color = require('color');
 // import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
@@ -26,15 +27,19 @@ class CardItemOverview extends Component {
   getCompanyLogo() {
     switch (this.props.company) {
       case o.WIREX:
-        return ('../../resources/images/logo_Wirex.svg')
+        return ('../../resources/logo_wirex.svg')
+      case o.XAPO:
+        return ('../../resources/logo_xapo.svg')
     }
     // console.log('wirex');
-    // return "../../resources/images/logo_Wirex.svg"
+    // return "../../resources/logo_Wirex.svg"
   }
   getCardIssuerLogo() {
     switch (this.props.cardIssuer) {
       case o.MASTERCARD:
-        return ('../../resources/images/logo_mastercard.svg')
+        return ('../../resources/logo_mastercard.svg')
+      case o.VISA:
+        return ('../../resources/logo_visa.svg')
     }
   }
   render() {
@@ -84,11 +89,12 @@ class CardItemOverview extends Component {
       <img src={this.getCompanyLogo()} alt="" style={companyStyle}/>
       <img src={this.getCardIssuerLogo()} alt="" style={cardIssuerStyle}/>
       <p style={cardTypeStyle}>{this.props.cardType}</p>
-      <p style={currencyStyle}>{this.props.spendingCurrency}</p>
+      <CardOverviewCurrency currency={this.props.spendingCurrency} style={currencyStyle}/>
     </div>
     )
   }
 }
+// <p style={currencyStyle}>{this.props.spendingCurrency}</p>
 
 CardItemOverview.PropTypes = {
   cardIssuer: PropTypes.string.isRequired,
